@@ -160,7 +160,7 @@ const convertToBar = (
     x1 = taskXCoordinate(task.start, dates, columnWidth);
     x2 = taskXCoordinate(task.end, dates, columnWidth);
   }
-  let typeInternal: TaskTypeInternal = task.type;
+  let typeInternal: TaskTypeInternal = task.type as TaskTypeInternal;
   if (typeInternal === "task" && x2 - x1 < handleWidth * 2) {
     typeInternal = "smalltask";
     x2 = x1 + handleWidth * 2;
@@ -169,7 +169,7 @@ const convertToBar = (
   const [progressWidth, progressX] = progressWithByParams(
     x1,
     x2,
-    task.progress,
+    task.progress as number,
     rtl
   );
   const y = taskYCoordinate(index, rowHeight, taskHeight);
@@ -237,7 +237,7 @@ const convertToMilestone = (
     progressWidth: 0,
     barCornerRadius,
     handleWidth,
-    typeInternal: task.type,
+    typeInternal: task.type as TaskTypeInternal,
     progress: 0,
     height: rotatedHeight,
     hideChildren: undefined,
@@ -472,7 +472,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress as number,
           rtl
         );
         changedTask.progressWidth = progressWidth;
@@ -505,7 +505,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress as number,
           rtl
         );
         changedTask.progressWidth = progressWidth;
@@ -540,7 +540,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress as number,
           rtl
         );
         changedTask.progressWidth = progressWidth;
