@@ -59,3 +59,32 @@ export const sortTasks = (taskA: Task, taskB: Task) => {
     return 0;
   }
 };
+
+function toArray(arr: any) {
+  if (arr === undefined || arr === null) {
+    return [];
+  }
+
+  return Array.isArray(arr) ? arr : [arr];
+}
+
+export function getPathValue(record: any, path: string | undefined) {
+  // Skip if path is empty
+  if (!path && typeof path !== "number") {
+    return record;
+  }
+
+  const pathList = toArray(path);
+  let current = record;
+
+  for (let i = 0; i < pathList.length; i += 1) {
+    if (!current) {
+      return null;
+    }
+
+    const prop = pathList[i];
+    current = current[prop];
+  }
+
+  return current;
+}

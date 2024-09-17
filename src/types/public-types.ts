@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export enum ViewMode {
   Hour = "Hour",
   QuarterDay = "Quarter Day",
@@ -12,19 +14,20 @@ export enum ViewMode {
 export type TaskType = "task" | "milestone" | "project";
 export interface Task {
   id: string;
-  type: TaskType;
+  type?: TaskType;
   name: string;
   start: Date;
   end: Date;
   /**
    * From 0 to 100
    */
-  progress: number;
+  progress?: number;
   styles?: {
     backgroundColor?: string;
     backgroundSelectedColor?: string;
     progressColor?: string;
     progressSelectedColor?: string;
+    fontSize?: number | string;
   };
   isDisabled?: boolean;
   project?: string;
@@ -74,6 +77,18 @@ export interface EventOption {
   onExpanderClick?: (task: Task) => void;
 }
 
+export interface ListColumn {
+  dataIndex?: string;
+  key?: string;
+  render?: (text: string, record: Task, index: number) => any;
+  title: ReactNode;
+  children?: any;
+  colSpan?: number;
+  rowSpan?: number;
+  width?: string;
+  ellipsis?: boolean | { showTitle: boolean };
+}
+
 export interface DisplayOption {
   viewMode?: ViewMode;
   viewDate?: Date;
@@ -83,6 +98,10 @@ export interface DisplayOption {
    */
   locale?: string;
   rtl?: boolean;
+  listColumns?: ListColumn[];
+  hasCrosswalk?: boolean;
+  hasDateLine?: boolean;
+  renderRowLines?: (index: number) => boolean;
 }
 
 export interface StylingOption {
@@ -99,6 +118,8 @@ export interface StylingOption {
    * How many of row width can be taken by task.
    * From 0 to 100
    */
+  className?: string;
+  barClassName?: string;
   barFill?: number;
   barProgressColor?: string;
   barProgressSelectedColor?: string;

@@ -25,10 +25,13 @@ import { removeHiddenTasks, sortTasks } from "../../helpers/other-helper";
 import styles from "./gantt.module.css";
 
 export const Gantt: React.FunctionComponent<GanttProps> = ({
+  className = "",
   tasks,
   headerHeight = 50,
   columnWidth = 60,
   listCellWidth = "155px",
+  listColumns = [],
+  barClassName = "",
   rowHeight = 50,
   ganttHeight = 0,
   viewMode = ViewMode.Day,
@@ -65,6 +68,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onDelete,
   onSelect,
   onExpanderClick,
+  hasCrosswalk = false,
+  hasDateLine = false,
+  renderRowLines = () => true,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -395,6 +401,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     dates: dateSetup.dates,
     todayColor,
     rtl,
+    hasCrosswalk,
+    hasDateLine,
+    renderRowLines,
   };
   const calendarProps: CalendarProps = {
     dateSetup,
@@ -429,11 +438,13 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onDoubleClick,
     onClick,
     onDelete,
+    barClassName,
   };
 
   const tableProps: TaskListProps = {
     rowHeight,
     rowWidth: listCellWidth,
+    listColumns,
     fontFamily,
     fontSize,
     tasks: barTasks,
@@ -450,7 +461,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     TaskListTable,
   };
   return (
-    <div>
+    <div className={className}>
       <div
         className={styles.wrapper}
         onKeyDown={handleKeyDown}

@@ -30,6 +30,7 @@ export type TaskGanttContentProps = {
   setGanttEvent: (value: GanttEvent) => void;
   setFailedTask: (value: BarTask | null) => void;
   setSelectedTask: (taskId: string) => void;
+  barClassName: string;
 } & EventOption;
 
 export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
@@ -55,6 +56,7 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
   onDoubleClick,
   onClick,
   onDelete,
+  barClassName,
 }) => {
   const point = svg?.current?.createSVGPoint();
   const [xStep, setXStep] = useState(0);
@@ -293,6 +295,7 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
               key={task.id}
               isSelected={!!selectedTask && task.id === selectedTask.id}
               rtl={rtl}
+              barClassName={barClassName}
             />
           );
         })}
